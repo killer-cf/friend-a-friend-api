@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  friend-a-friend:
+    image: bitnami/postgresql
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRESQL_USERNAME=killer
+      - POSTGRESQL_PASSWORD=9766
+      - POSTGRESQL_DATABASE=friendafriend
