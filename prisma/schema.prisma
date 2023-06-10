@@ -9,3 +9,76 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+enum Independence {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+enum Energy {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+enum Size {
+  SMALL
+  MEDIUM
+  BIG
+}
+
+enum Space {
+  SMALL
+  MEDIUM
+  BIG
+}
+
+enum Age {
+  PUPPY
+  JUVENILE
+  ADULT
+  OLD
+}
+
+model User {
+  id            String   @id @default(uuid())
+  name          String
+  email         String   @unique
+  phone         String
+  address       String
+  cep           String
+  password_hash String
+  created_at    DateTime @default(now())
+  pet           Pet[]
+
+  @@map("users")
+}
+
+model Pet {
+  id           String       @id @default(uuid())
+  name         String
+  about        String
+  size         Size
+  independence Independence
+  energy       Energy
+  space        Space
+  age          Age
+  created_at   DateTime     @default(now())
+  updated_at   DateTime     @updatedAt
+
+  user         User          @relation(fields: [user_id], references: [id])
+  user_id      String
+  requirements Requirement[]
+
+  @@map("pets")
+}
+
+model Requirement {
+  id     String @id @default(uuid())
+  title  String
+  pet    Pet    @relation(fields: [pet_id], references: [id])
+  pet_id String
+
+  @@map("requirements")
+}
