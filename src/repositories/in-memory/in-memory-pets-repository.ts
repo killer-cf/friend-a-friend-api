@@ -9,8 +9,10 @@ interface PetsWithRequirement extends Pet {
 export class InMemoryPetsRepository implements PetsRepository {
   public items: PetsWithRequirement[] = []
 
-  async fetchPetsByCity(city: string) {
-    const pets = await this.items.filter((item) => item.city === city)
+  async fetchPetsByCity(city: string, page: number) {
+    const pets = await this.items
+      .filter((item) => item.city === city)
+      .slice((page - 1) * 20, page * 20)
 
     return pets
   }

@@ -3,6 +3,7 @@ import { PetsRepository } from '@/repositories/pets-repository'
 
 interface FetchPetsByCityUseCaseRequest {
   city: string
+  page: number
 }
 
 interface FetchPetsByCityUseCaseResponse {
@@ -14,8 +15,9 @@ export class FetchPetsByCityUseCase {
 
   async execute({
     city,
+    page,
   }: FetchPetsByCityUseCaseRequest): Promise<FetchPetsByCityUseCaseResponse> {
-    const pets = await this.petsRepository.fetchPetsByCity(city)
+    const pets = await this.petsRepository.fetchPetsByCity(city, page)
 
     return { pets }
   }
