@@ -9,6 +9,12 @@ interface PetsWithRequirement extends Pet {
 export class InMemoryPetsRepository implements PetsRepository {
   public items: PetsWithRequirement[] = []
 
+  async fetchPetsByCity(city: string) {
+    const pets = await this.items.filter((item) => item.city === city)
+
+    return pets
+  }
+
   async create(
     data: Prisma.PetUncheckedCreateInput,
     requirementsData: string[],

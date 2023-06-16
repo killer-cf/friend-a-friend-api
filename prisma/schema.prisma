@@ -59,6 +59,7 @@ model Pet {
   id           String       @id @default(uuid())
   name         String
   about        String
+  city         String
   size         Size
   independence Independence
   energy       Energy
