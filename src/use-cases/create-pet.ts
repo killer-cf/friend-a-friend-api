@@ -4,6 +4,7 @@ import { PetsRepository } from '@/repositories/pets-repository'
 interface CreatePetUseCaseRequest {
   name: string
   about: string
+  city: string
   size: Size
   independence: Independence
   energy: Energy
@@ -29,6 +30,7 @@ export class CreatePetUseCase {
     requirements,
     size,
     space,
+    city,
     user_id,
   }: CreatePetUseCaseRequest): Promise<CreatePetUseCaseResponse> {
     const pet = await this.petsRepository.create(
@@ -41,6 +43,7 @@ export class CreatePetUseCase {
         size,
         space,
         user_id,
+        city,
       },
       requirements,
     )

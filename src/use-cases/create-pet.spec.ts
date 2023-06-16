@@ -17,6 +17,7 @@ describe('Create Pet Use Case', () => {
       about: 'Cachorinho muito legal e dócil',
       space: 'BIG',
       age: 'JUVENILE',
+      city: 'Recife',
       energy: 'HIGH',
       independence: 'LOW',
       size: 'MEDIUM',
@@ -29,6 +30,7 @@ describe('Create Pet Use Case', () => {
     expect(pet.space).toEqual('BIG')
     expect(pet.age).toEqual('JUVENILE')
     expect(pet.energy).toEqual('HIGH')
+    expect(pet.city).toEqual('Recife')
     expect(pet.size).toEqual('MEDIUM')
     expect(pet.user_id).toEqual('user_01')
     expect(pet.independence).toEqual('LOW')
