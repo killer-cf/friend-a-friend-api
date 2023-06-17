@@ -1,6 +1,6 @@
 import { Pet, Prisma, Requirement } from '@prisma/client'
 import { randomUUID } from 'node:crypto'
-import { PetsRepository } from '../pets-repository'
+import { FilterPetsData, PetsRepository } from '../pets-repository'
 
 interface PetsWithRequirement extends Pet {
   requirements: Requirement[]
@@ -8,6 +8,33 @@ interface PetsWithRequirement extends Pet {
 
 export class InMemoryPetsRepository implements PetsRepository {
   public items: PetsWithRequirement[] = []
+
+  async filterPets({
+    age,
+    energy,
+    independence,
+    size,
+    space,
+    city,
+  }: FilterPetsData) {
+    const pets = this.items
+      .filter((pet) => pet.city === city)
+      .filter((pet) => {
+        const isAge = age ? pet.age.includes(age) : true
+        const isEnergy = energy ? pet.energy.includes(energy) : true
+        const isSpace = space ? pet.space.includes(space) : true
+        const isIndependence = independence
+          ? pet.independence.includes(independence)
+          : true
+        const isSize = size ? pet.size.includes(size) : true
+
+        const attributes = [isAge, isEnergy, isSpace, isIndependence, isSize]
+
+        return attributes.every((attribute) => attribute === true)
+      })
+
+    return pets
+  }
 
   async getPetById(pet_id: string) {
     const pet = await this.items.find((item) => item.id === pet_id)
