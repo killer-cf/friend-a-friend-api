@@ -53,7 +53,7 @@ model User {
   phone         String
   address       String
   cep           String
-  role          Role
+  role          Role     @default(ORG)
   password_hash String
   created_at    DateTime @default(now())
   pet           Pet[]

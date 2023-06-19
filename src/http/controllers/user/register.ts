@@ -34,4 +34,6 @@ export async function register(req: FastifyRequest, res: FastifyReply) {
 
     throw error
   }
+
+  return res.status(201).send()
 }
