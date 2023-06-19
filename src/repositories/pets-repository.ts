@@ -9,6 +9,7 @@ import {
 } from '@prisma/client'
 
 export interface FilterPetsData {
+  page: number
   city: string
   size?: Size
   independence?: Independence
@@ -26,6 +27,7 @@ export interface PetsRepository {
     size,
     space,
     city,
+    page,
   }: FilterPetsData): Promise<Pet[]>
   create(
     data: Prisma.PetUncheckedCreateInput,

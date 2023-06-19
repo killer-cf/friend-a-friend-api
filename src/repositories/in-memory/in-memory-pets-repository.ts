@@ -16,6 +16,7 @@ export class InMemoryPetsRepository implements PetsRepository {
     size,
     space,
     city,
+    page,
   }: FilterPetsData) {
     const pets = this.items
       .filter((pet) => pet.city === city)
@@ -32,6 +33,7 @@ export class InMemoryPetsRepository implements PetsRepository {
 
         return attributes.every((attribute) => attribute === true)
       })
+      .slice((page - 1) * 20, page * 20)
 
     return pets
   }
