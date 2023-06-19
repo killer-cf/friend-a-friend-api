@@ -41,6 +41,11 @@ enum Age {
   OLD
 }
 
+enum Role {
+  ADMIN
+  ORG
+}
+
 model User {
   id            String   @id @default(uuid())
   name          String
@@ -48,6 +53,7 @@ model User {
   phone         String
   address       String
   cep           String
+  role          Role
   password_hash String
   created_at    DateTime @default(now())
   pet           Pet[]
