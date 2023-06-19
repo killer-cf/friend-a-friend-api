@@ -62,8 +62,6 @@ describe('Fetch pets by city Use Case', () => {
       page: 1,
     })
 
-    console.log(pets)
-
     expect(pets).toHaveLength(2)
     expect(pets).toEqual([
       expect.objectContaining({ name: 'Jose', city: 'Recife' }),
