@@ -13,7 +13,7 @@ describe('Filter Pets (e2e)', () => {
     await app.close()
   })
 
-  it.only('should be able to filter pets', async () => {
+  it('should be able to filter pets', async () => {
     const user = await prisma.user.create({
       data: {
         name: 'Jose',
