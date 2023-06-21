@@ -4,7 +4,7 @@ import { app } from '@/app'
 import { prisma } from '@/lib/prisma'
 import { hash } from 'bcryptjs'
 
-describe('List Pets (e2e)', () => {
+describe('Filter Pets (e2e)', () => {
   beforeAll(async () => {
     await app.ready()
   })
@@ -13,7 +13,7 @@ describe('List Pets (e2e)', () => {
     await app.close()
   })
 
-  it('should be able to list pets in the city', async () => {
+  it.only('should be able to filter pets', async () => {
     const user = await prisma.user.create({
       data: {
         name: 'Jose',
@@ -27,24 +27,24 @@ describe('List Pets (e2e)', () => {
     await prisma.pet.createMany({
       data: [
         {
-          name: 'Jose',
+          name: 'Jose filtered',
           about: 'Cachorinho muito legal e dócil',
           space: 'BIG',
           age: 'JUVENILE',
           city: 'Recife',
-          energy: 'HIGH',
-          independence: 'LOW',
+          energy: 'MEDIUM',
+          independence: 'HIGH',
           size: 'MEDIUM',
           user_id: user.id,
         },
         {
-          name: 'Alfredo',
+          name: 'Alfredo filtered',
           about: 'Cachorinho muito legal e dócil',
           space: 'BIG',
           age: 'JUVENILE',
           city: 'Recife',
-          energy: 'HIGH',
-          independence: 'LOW',
+          energy: 'MEDIUM',
+          independence: 'HIGH',
           size: 'MEDIUM',
           user_id: user.id,
         },
@@ -53,7 +53,7 @@ describe('List Pets (e2e)', () => {
           about: 'Cachorinho muito legal e dócil',
           space: 'BIG',
           age: 'JUVENILE',
-          city: 'Petrolina',
+          city: 'Recife',
           energy: 'HIGH',
           independence: 'LOW',
           size: 'MEDIUM',
@@ -63,9 +63,11 @@ describe('List Pets (e2e)', () => {
     })
 
     const response = await request(app.server)
-      .get(`/pets`)
+      .get(`/pets/filters`)
       .query({
         city: 'Recife',
+        energy: 'MEDIUM',
+        independence: 'HIGH',
       })
       .send()
 
@@ -73,8 +75,8 @@ describe('List Pets (e2e)', () => {
     expect(response.body.pets).toHaveLength(2)
     expect(response.body.pets).toEqual(
       expect.arrayContaining([
-        expect.objectContaining({ name: 'Jose' }),
-        expect.objectContaining({ name: 'Alfredo' }),
+        expect.objectContaining({ name: 'Alfredo filtered' }),
+        expect.objectContaining({ name: 'Jose filtered' }),
       ]),
     )
   })

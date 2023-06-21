@@ -11,11 +11,11 @@ import {
 export interface FilterPetsData {
   page: number
   city: string
-  size?: Size
-  independence?: Independence
-  energy?: Energy
-  space?: Space
-  age?: Age
+  size?: Size | null
+  independence?: Independence | null
+  energy?: Energy | null
+  space?: Space | null
+  age?: Age | null
 }
 export interface PetsRepository {
   fetchPetsByCity(city: string, page: number): Promise<Pet[]>
